@@ -1,7 +1,7 @@
 import random
 
 # generate a random number between 1 and 100
-answer = rand.randint(1, 100)
+answer = random.randint(1, 100)
 
 # prompt the user to guess the number
 guess = int(input("Pick a number between 1 and 100: "))
