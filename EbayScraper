@@ -1,0 +1,24 @@
+import requests
+from bs4 import BeautifulSoup
+
+def scrape_ebay(search_term):
+    # Define the URL to search on eBay
+    url = f"https://www.ebay.com/sch/i.html?_nkw={search_term}"
+
+    # Send a GET request to the URL
+    response = requests.get(url)
+
+    # Parse the HTML content of the response
+    soup = BeautifulSoup(response.content, "html.parser")
+
+    # Find all of the listings on the page
+    listings = soup.find_all("li", class_="s-item")
+
+    # Iterate through the listings and print the title and price of each one
+    for listing in listings:
+        title = listing.find("h3", class_="s-item__title").text
+        price = listing.find("span", class_="s-item__price").text
+        print(f"{title} - {price}")
+
+# Call the function with the search term "Maurice De Mauriac"
+scrape_ebay("Maurice De Mauriac")
