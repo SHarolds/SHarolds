@@ -1,9 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
-def scrape_ebay(search_term):
+def scrape_ebay(search_term, max_price):
     # Define the URL to search on eBay
-    url = f"https://www.ebay.com/sch/i.html?_nkw={search_term}"
+    url = f"https://www.ebay.com/sch/i.html?_nkw={search_term}&_udlo={max_price}"
 
     # Send a GET request to the URL
     response = requests.get(url)
@@ -18,7 +18,9 @@ def scrape_ebay(search_term):
     for listing in listings:
         title = listing.find("h3", class_="s-item__title").text
         price = listing.find("span", class_="s-item__price").text
-        print(f"{title} - {price}")
+        # check if the price is under the max_price
+        if float(price[1:].replace(",","")) <= max_price:
+            print(f"{title} - {price}")
 
-# Call the function with the search term "Maurice De Mauriac"
-scrape_ebay("Maurice De Mauriac")
+# Call the function with the search term "Maurice De Mauriac" and max price $1000
+scrape_ebay("Maurice De Mauriac", 1000)
