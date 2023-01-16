@@ -1,4 +1,4 @@
-# initialise the board
+ # create board
 board = [" " for x in range(9)]
 
 def print_board():
@@ -20,7 +20,7 @@ def player_move(icon):
 
     print("Your turn player {}".format(number))
 
-    choice = int(input("Enter your move (1-9): ").strip())
+    choice = int(input("Pick a square (1-9): ").strip())
     if board[choice - 1] == " ":
         board[choice - 1] = icon
     else:
